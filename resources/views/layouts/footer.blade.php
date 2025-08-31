@@ -37,7 +37,7 @@
                     </li>
                     <li>
                         <i class="bi bi-chevron-right me-2"></i>
-                        <a href="/site-map" class="text-white text-decoration-none" target="_blank">ส่วนจัดการระบบ</a>
+                        <a href="/login" class="text-white text-decoration-none" target="_blank">ส่วนจัดการระบบ</a>
                     </li>
                 </ul>
             </div>
