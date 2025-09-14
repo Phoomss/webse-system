@@ -44,9 +44,9 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/classrooms', [ClassroomController::class, 'index'])->name('admin.classrooms.index');
     Route::get('/classrooms/create', [ClassroomController::class, 'create'])->name('admin.classrooms.create');
     Route::post('/classrooms', [ClassroomController::class, 'store'])->name('admin.classrooms.store');
-    Route::get('/classrooms/{classroom}/edit', [ClassroomController::class, 'edit'])->name('admin.classrooms.edit');  // เปลี่ยน {id} -> {classroom}
-    Route::put('/classrooms/{classroom}', [ClassroomController::class, 'update'])->name('admin.classrooms.update'); // เปลี่ยน {id} -> {classroom}
-    Route::delete('/classrooms/{classroom}', [ClassroomController::class, 'destroy'])->name('admin.classrooms.destroy'); // เปลี่ยน {id} -> {classroom}
+    Route::get('/classrooms/{classroom}/edit', [ClassroomController::class, 'edit'])->name('admin.classrooms.edit');
+    Route::put('/classrooms/{classroom}', [ClassroomController::class, 'update'])->name('admin.classrooms.update');
+    Route::delete('/classrooms/{classroom}', [ClassroomController::class, 'destroy'])->name('admin.classrooms.destroy');
 });
 
 Route::get('/teacher/dashboard', function () {
