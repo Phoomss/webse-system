@@ -7,17 +7,17 @@ use Illuminate\Http\Request;
 
 class ClassroomController extends Controller
 {
-    // ดึงข้อมูลทั้งหมด
     public function index()
     {
         $classrooms = Classroom::all();
-
-        return response()->json([
-            'data' => $classrooms
-        ]);
+        return view('admin.classrooms.index', compact('classrooms'));
     }
 
-    // สร้างห้องใหม่
+    public function create()
+    {
+        return view('admin.classrooms.create');
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -25,62 +25,29 @@ class ClassroomController extends Controller
             'img' => 'required|url',
         ]);
 
-        $classroom = Classroom::create([
-            'title' => $request->title,
-            'img' => $request->img,
-        ]);
-
-        return response()->json([
-            'message' => 'Classroom created successfully',
-            'data' => $classroom
-        ], 201);
+        Classroom::create($request->only(['title', 'img']));
+        return redirect()->route('admin.classrooms.index')->with('success', 'เพิ่มห้องปฏิบัติการเรียบร้อย');
     }
 
-    // แสดงข้อมูลห้องปฏิบัติการตาม id
-    public function show($id)
+    public function edit(Classroom $classroom)
     {
-        $classroom = Classroom::find($id);
-
-        if (!$classroom) {
-            return response()->json(['message' => 'Classroom not found'], 404);
-        }
-
-        return response()->json([
-            'data' => $classroom
-        ]);
+        return view('admin.classrooms.edit', compact('classroom'));
     }
 
-    // อัปเดตข้อมูลห้อง
-    public function update(Request $request, $id)
+    public function update(Request $request, Classroom $classroom)
     {
-        $classroom = Classroom::find($id);
-        if (!$classroom) {
-            return response()->json(['message' => 'Classroom not found'], 404);
-        }
-
         $request->validate([
-            'title' => 'sometimes|required|string|max:255',
-            'img' => 'sometimes|required|url',
+            'title' => 'required|string|max:255',
+            'img' => 'required|url',
         ]);
 
         $classroom->update($request->only(['title', 'img']));
-
-        return response()->json([
-            'message' => 'Classroom updated successfully',
-            'data' => $classroom
-        ]);
+        return redirect()->route('admin.classrooms.index')->with('success', 'แก้ไขข้อมูลเรียบร้อย');
     }
 
-    // ลบห้อง
-    public function destroy($id)
+    public function destroy(Classroom $classroom)
     {
-        $classroom = Classroom::find($id);
-        if (!$classroom) {
-            return response()->json(['message' => 'Classroom not found'], 404);
-        }
-
         $classroom->delete();
-
-        return response()->json(['message' => 'Classroom deleted successfully']);
+        return redirect()->route('admin.classrooms.index')->with('success', 'ลบข้อมูลเรียบร้อย');
     }
 }
