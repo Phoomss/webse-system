@@ -18,7 +18,7 @@ class ClassroomFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(3),
-            'img' => $this->faker->imageUrl(640, 480, 'education', true), 
+            'img' => $this->faker->imageUrl(640, 480, 'education', true),
         ];
     }
 }
