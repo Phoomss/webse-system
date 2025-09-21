@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\HomeControllers;
+use App\Http\Controllers\LecturerController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -13,9 +15,7 @@ Route::get('/about/history', [HomeControllers::class,'about']);
 
 Route::get('/about/laboratory', [HomeControllers::class, 'laboratory']);
 
-Route::get('/about/teacher', function () {
-    return view('pages.departmentHead');
-});
+Route::get('/about/teacher', [HomeControllers::class,'teacher']);
 
 Route::get('/course', function () {
     return view('pages.curriculumTuition');
@@ -52,6 +52,13 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/abouts/{about}/edit',[AboutController::class,'edit'])->name('admin.abouts.edit');
     Route::put('/abouts/{about}',[AboutController::class,'update'])->name('admin.abouts.update');
     Route::delete('/abouts/{about}',[AboutController::class,'destroy'])->name('admin.abouts.destroy');
+
+    Route::get('/lecturers',[LecturerController::class,'index'])->name('admin.lecturers.index');
+    Route::get('/lecturers/create',[LecturerController::class,'create'])->name('admin.lecturers.create');
+    Route::post('/lecturers',[LecturerController::class,'store'])->name('admin.lecturers.store');
+    Route::get('/lecturers/{lecturer}/edit',[LecturerController::class,'edit'])->name('admin.lecturers.edit');
+    Route::put('/lecturers/{lecturer}',[LecturerController::class,'update'])->name('admin.lecturers.update');
+    Route::delete('/lecturers/{lecturer}',[LecturerController::class,'destroy'])->name('admin.lecturers.destroy');
 });
 
 Route::get('/teacher/dashboard', function () {
