@@ -3,5 +3,5 @@
 @section('title', 'ข่าวสารและกิจกรรม')
 
 @section('content')
-    @include('components.newsActivities')
+    @include('components.news-activities')
 @endsection

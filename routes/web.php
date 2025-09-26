@@ -31,7 +31,9 @@ Route::get('/course', function () {
 });
 
 Route::get('/news-activities', function () {
-    return view('pages.newsActivities');
+    $newsList = News::latest()->take(3)->get();
+    $activities = Activity::latest()->take(3)->get();
+    return view('pages.news-activities', compact('newsList', 'activities'));
 });
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
