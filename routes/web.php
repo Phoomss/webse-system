@@ -8,16 +8,19 @@ use App\Http\Controllers\HeroSlideController;
 use App\Http\Controllers\HomeControllers;
 use App\Http\Controllers\LecturerController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\VideoController;
 use App\Models\Activity;
 use App\Models\HeroSlide;
 use App\Models\News;
+use App\Models\Video;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $slides = HeroSlide::orderBy('order')->get();
     $newsList = News::latest()->take(6)->get(); // ดึงข่าวล่าสุด 6 ข่าว
     $activities = Activity::latest()->take(6)->get(); // ดึงกิจกรรมล่าสุด 6 กิจกรรม
-    return view('index', compact('slides', 'newsList', 'activities'));
+    $videos = Video::all(); // ดึงวิดีโอทั้งหมด
+    return view('index', compact('slides', 'newsList', 'activities', 'videos'));
 });
 
 Route::get('/about/history', [HomeControllers::class, 'about']);
@@ -91,6 +94,13 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/activities/{activity}/edit', [ActivityController::class, 'edit'])->name('admin.activities.edit');
     Route::put('/activities/{activity}', [ActivityController::class, 'update'])->name('admin.activities.update');
     Route::delete('/activities/{activity}', [ActivityController::class, 'destroy'])->name('admin.activities.destroy');
+
+    Route::get('/videos', [VideoController::class, 'index'])->name('admin.videos.index');
+    Route::get('/videos/create', [VideoController::class, 'create'])->name('admin.videos.create');
+    Route::post('/videos', [VideoController::class, 'store'])->name('admin.videos.store');
+    Route::get('/videos/{video}/edit', [VideoController::class, 'edit'])->name('admin.videos.edit');
+    Route::put('/videos/{video}', [VideoController::class, 'update'])->name('admin.videos.update');
+    Route::delete('/videos/{video}', [VideoController::class, 'destroy'])->name('admin.videos.destroy');
 });
 
 Route::get('/teacher/dashboard', function () {

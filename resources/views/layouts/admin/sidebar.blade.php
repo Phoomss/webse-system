@@ -51,6 +51,12 @@
             กิจกรรม
         </a>
 
+        {{-- เมนู Videos --}}
+        <a href="{{ route('admin.videos.index') }}"
+            class="list-group-item list-group-item-action bg-dark text-white {{ request()->routeIs('admin.videos.*') ? 'active' : '' }}">
+            วิดีโอ
+        </a>
+
         <form action="{{ route('logout') }}" method="POST" class="mt-4 px-3">
             @csrf
             <button class="btn btn-danger w-100">ออกจากระบบ</button>
