@@ -3,12 +3,15 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\HeroSlideController;
 use App\Http\Controllers\HomeControllers;
 use App\Http\Controllers\LecturerController;
+use App\Models\HeroSlide;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('index');
+  $slides = HeroSlide::orderBy('order')->get(); // ดึงข้อมูลเรียงลำดับ
+    return view('index', compact('slides'));
 });
 
 Route::get('/about/history', [HomeControllers::class,'about']);
@@ -59,6 +62,13 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/lecturers/{lecturer}/edit',[LecturerController::class,'edit'])->name('admin.lecturers.edit');
     Route::put('/lecturers/{lecturer}',[LecturerController::class,'update'])->name('admin.lecturers.update');
     Route::delete('/lecturers/{lecturer}',[LecturerController::class,'destroy'])->name('admin.lecturers.destroy');
+
+    Route::get('/hero-slides',[HeroSlideController::class,'index'])->name('admin.hero_slides.index');
+    Route::get('/hero-slides/create',[HeroSlideController::class,'create'])->name('admin.hero_slides.create');
+    Route::post('/hero-slides',[HeroSlideController::class,'store'])->name('admin.hero_slides.store');
+    Route::get('/hero-slides/{heroSlide}/edit',[HeroSlideController::class,'edit'])->name('admin.hero_slides.edit');
+    Route::put('/hero-slides/{heroSlide}',[HeroSlideController::class,'update'])->name('admin.hero_slides.update');
+    Route::delete('/hero-slides/{heroSlide}',[HeroSlideController::class,'destroy'])->name('admin.hero_slides.destroy');
 });
 
 Route::get('/teacher/dashboard', function () {

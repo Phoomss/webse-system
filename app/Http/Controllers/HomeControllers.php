@@ -25,4 +25,11 @@ class HomeControllers extends Controller
         $teacher = Lecturer::all();
         return view('pages.departmentHead', compact('teacher'));
     }
+
+    public function hero_slice(){
+        $teacher = Lecturer::all();
+        return view('components.image-hero', compact('heroSlides'));
+    }
+
+
 }

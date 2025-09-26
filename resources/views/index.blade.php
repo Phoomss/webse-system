@@ -4,7 +4,8 @@
 
 @section('content')
     <section>
-        @include('components.imageHero')
+        {{-- @include('components.imageHero') --}}
+        <x-hero-slide />
     </section>
     <section class="mt-5">
         <div class="mx-auto" style="max-width: 1140px;">

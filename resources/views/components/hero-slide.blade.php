@@ -1,26 +1,23 @@
+<!-- resources/views/components/hero-slide.blade.php -->
 <div id="heroCarousel" class="carousel slide carousel-fade shadow-lg" data-bs-ride="carousel">
     <!-- Indicators -->
     <div class="carousel-indicators">
-        @foreach($heroSlides as $index => $slide)
-            <button type="button"
-                data-bs-target="#heroCarousel"
-                data-bs-slide-to="{{ $index }}"
-                class="{{ $index === 0 ? 'active' : '' }}"
-                aria-current="{{ $index === 0 ? 'true' : 'false' }}"
-                aria-label="Slide {{ $index + 1 }}"></button>
+        @foreach($slides as $index => $slide)
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="{{ $index }}"
+                    class="{{ $index === 0 ? 'active' : '' }}"
+                    aria-current="{{ $index === 0 ? 'true' : 'false' }}"
+                    aria-label="Slide {{ $index + 1 }}"></button>
         @endforeach
     </div>
 
     <!-- Slides -->
     <div class="carousel-inner">
-        @foreach($heroSlides as $index => $slide)
+        @foreach($slides as $index => $slide)
             <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                 <div class="ratio ratio-16x9">
-                    <img src="{{ $slide->image }}"
-                         class="d-block w-100 h-100 object-fit-cover"
+                    <img src="{{ $slide->image }}" class="d-block w-100 h-100 object-fit-cover"
                          alt="{{ $slide->title ?? 'Slide ' . ($index+1) }}">
                 </div>
-
                 @if($slide->title || $slide->link)
                     <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
                         @if($slide->title)

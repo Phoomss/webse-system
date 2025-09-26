@@ -34,6 +34,12 @@
            เกี่ยวกับสาขา
         </a>
 
+        {{-- เมนู Hero Slide --}}
+        <a href="{{ route('admin.hero_slides.index') }}"
+           class="list-group-item list-group-item-action bg-dark text-white {{ request()->routeIs('admin.hero-slides.*') ? 'active' : '' }}">
+           Hero Slide
+        </a>
+
         <form action="{{ route('logout') }}" method="POST" class="mt-4 px-3">
             @csrf
             <button class="btn btn-danger w-100">ออกจากระบบ</button>
