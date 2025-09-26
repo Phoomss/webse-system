@@ -9,7 +9,8 @@
     </section>
     <section class="mt-5">
         <div class="mx-auto" style="max-width: 1140px;">
-            @include('components.newsSection')
+            {{-- @include('components.newsSection') --}}
+            <x-news-section />
         </div>
     </section>
 
@@ -35,6 +36,6 @@
 
     {{-- Activity Section --}}
     <section class="container my-5">
-        @include('components.activity')
+       <x-activity :activities="$activities" />
     </section>
 @endsection
