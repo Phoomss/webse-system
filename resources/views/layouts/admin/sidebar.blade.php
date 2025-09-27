@@ -18,6 +18,11 @@
             อาจารย์
         </a>
 
+        <a href="{{ route('admin.teachers.index') }}"
+            class="list-group-item list-group-item-action bg-dark text-white {{ request()->routeIs('admin.teachers.*') ? 'active' : '' }}">
+            จัดการอาจารย์
+        </a>
+
         <a href="{{ route('admin.abouts.index') }}"
             class="list-group-item list-group-item-action bg-dark text-white {{ request()->routeIs('admin.abouts.*') ? 'active' : '' }}">
             เกี่ยวกับสาขา
