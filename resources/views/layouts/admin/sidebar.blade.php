@@ -54,7 +54,22 @@
         {{-- เมนู Videos --}}
         <a href="{{ route('admin.videos.index') }}"
             class="list-group-item list-group-item-action bg-dark text-white {{ request()->routeIs('admin.videos.*') ? 'active' : '' }}">
-            วิดีโอ
+            <i class="fas fa-video"></i> วิดีโอ
+        </a>
+        
+        <a href="{{ route('admin.courses.index') }}"
+            class="list-group-item list-group-item-action bg-dark text-white {{ request()->routeIs('admin.courses.*') ? 'active' : '' }}">
+            <i class="fas fa-graduation-cap"></i> หลักสูตร
+        </a>
+        
+        <a href="{{ route('admin.course_cards.index') }}"
+            class="list-group-item list-group-item-action bg-dark text-white {{ request()->routeIs('admin.course_cards.*') ? 'active' : '' }}">
+            <i class="fas fa-id-card"></i> การ์ดหลักสูตร
+        </a>
+        
+        <a href="{{ route('admin.curriculum_tuitions.index') }}"
+            class="list-group-item list-group-item-action bg-dark text-white {{ request()->routeIs('admin.curriculum_tuitions.*') ? 'active' : '' }}">
+            <i class="fas fa-book"></i> หลักสูตร/ค่าเทอม
         </a>
 
         <form action="{{ route('logout') }}" method="POST" class="mt-4 px-3">

@@ -4,24 +4,24 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\CourseCardController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CurriculumTuitionController;
 use App\Http\Controllers\HeroSlideController;
 use App\Http\Controllers\HomeControllers;
 use App\Http\Controllers\LecturerController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\VideoController;
 use App\Models\Activity;
+use App\Models\Course;
+use App\Models\CourseCard;
+use App\Models\CurriculumTuition;
 use App\Models\HeroSlide;
 use App\Models\News;
 use App\Models\Video;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    $slides = HeroSlide::orderBy('order')->get();
-    $newsList = News::latest()->take(6)->get(); // ดึงข่าวล่าสุด 6 ข่าว
-    $activities = Activity::latest()->take(6)->get(); // ดึงกิจกรรมล่าสุด 6 กิจกรรม
-    $videos = Video::all(); // ดึงวิดีโอทั้งหมด
-    return view('index', compact('slides', 'newsList', 'activities', 'videos'));
-});
+Route::get('/', [HomeControllers::class, 'index'])->name('home');
 
 Route::get('/about/history', [HomeControllers::class, 'about']);
 
@@ -30,7 +30,10 @@ Route::get('/about/laboratory', [HomeControllers::class, 'laboratory']);
 Route::get('/about/teacher', [HomeControllers::class, 'teacher']);
 
 Route::get('/course', function () {
-    return view('pages.curriculumTuition');
+    $course = Course::first();
+    $courseCards = CourseCard::orderBy('order')->get();
+    $curriculumTuition = CurriculumTuition::where('is_active', true)->first(); // Get active curriculum tuition
+    return view('pages.curriculumTuition', compact('course', 'courseCards', 'curriculumTuition'));
 });
 
 Route::get('/news-activities', function () {
@@ -101,6 +104,27 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/videos/{video}/edit', [VideoController::class, 'edit'])->name('admin.videos.edit');
     Route::put('/videos/{video}', [VideoController::class, 'update'])->name('admin.videos.update');
     Route::delete('/videos/{video}', [VideoController::class, 'destroy'])->name('admin.videos.destroy');
+
+    Route::get('/courses', [CourseController::class, 'index'])->name('admin.courses.index');
+    Route::get('/courses/create', [CourseController::class, 'create'])->name('admin.courses.create');
+    Route::post('/courses', [CourseController::class, 'store'])->name('admin.courses.store');
+    Route::get('/courses/{course}/edit', [CourseController::class, 'edit'])->name('admin.courses.edit');
+    Route::put('/courses/{course}', [CourseController::class, 'update'])->name('admin.courses.update');
+    Route::delete('/courses/{course}', [CourseController::class, 'destroy'])->name('admin.courses.destroy');
+
+    Route::get('/course-cards', [CourseCardController::class, 'index'])->name('admin.course_cards.index');
+    Route::get('/course-cards/create', [CourseCardController::class, 'create'])->name('admin.course_cards.create');
+    Route::post('/course-cards', [CourseCardController::class, 'store'])->name('admin.course_cards.store');
+    Route::get('/course-cards/{courseCard}/edit', [CourseCardController::class, 'edit'])->name('admin.course_cards.edit');
+    Route::put('/course-cards/{courseCard}', [CourseCardController::class, 'update'])->name('admin.course_cards.update');
+    Route::delete('/course-cards/{courseCard}', [CourseCardController::class, 'destroy'])->name('admin.course_cards.destroy');
+
+    Route::get('/curriculum-tuitions', [CurriculumTuitionController::class, 'index'])->name('admin.curriculum_tuitions.index');
+    Route::get('/curriculum-tuitions/create', [CurriculumTuitionController::class, 'create'])->name('admin.curriculum_tuitions.create');
+    Route::post('/curriculum-tuitions', [CurriculumTuitionController::class, 'store'])->name('admin.curriculum_tuitions.store');
+    Route::get('/curriculum-tuitions/{curriculumTuition}/edit', [CurriculumTuitionController::class, 'edit'])->name('admin.curriculum_tuitions.edit');
+    Route::put('/curriculum-tuitions/{curriculumTuition}', [CurriculumTuitionController::class, 'update'])->name('admin.curriculum_tuitions.update');
+    Route::delete('/curriculum-tuitions/{curriculumTuition}', [CurriculumTuitionController::class, 'destroy'])->name('admin.curriculum_tuitions.destroy');
 });
 
 Route::get('/teacher/dashboard', function () {

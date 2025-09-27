@@ -1,3 +1,5 @@
+@props(['courseCards' => collect()])
+
 {{-- หลักสูตรและคุณสมบัติผู้เข้าศึกษา --}}
 <div class="p-4 p-md-5 text-white">
 
@@ -12,7 +14,40 @@
     {{-- การ์ดทั้งหมด --}}
     <div class="container">
         <div class="row g-4">
-
+            @forelse($courseCards as $card)
+            {{-- Card --}}
+            <div class="col-12 col-sm-6 col-lg-4">
+                <div class="card h-100 text-center shadow-lg border-0 bg-white hover-shadow"
+                     style="transition: transform 0.3s;"
+                     onmouseover="this.style.transform='scale(1.05)'; this.classList.add('bg-danger','text-white');"
+                     onmouseout="this.style.transform='scale(1)'; this.classList.remove('bg-danger','text-white');">
+                    <div class="card-body d-flex flex-column align-items-center">
+                        <i class="bi {{ $card->icon_class ?? 'bi-mortarboard-fill' }} mb-3 text-danger" style="font-size:2rem;"></i>
+                        <h5 class="card-title text-danger mb-3">{{ $card->title_thai ?? 'ชื่อการ์ด' }}</h5>
+                        <ul class="list-unstyled text-danger lh-lg text-start">
+                            @if($card->content_thai)
+                                @php
+                                    $contentItems = explode("\n", str_replace(["\r\n", "\r"], "\n", $card->content_thai));
+                                    foreach($contentItems as $item) {
+                                        if(trim($item)) {
+                                            echo '<li>' . e(trim($item)) . '</li>';
+                                        }
+                                    }
+                                @endphp
+                            @else
+                                <li>• ข้อมูลตัวอย่าง</li>
+                            @endif
+                        </ul>
+                        @if($card->button_link)
+                            <a href="{{ $card->button_link }}" class="btn btn-danger btn-lg rounded-pill px-4 mt-auto" target="_blank">
+                                {{ $card->button_text_thai ?? 'ดูรายละเอียด' }}
+                            </a>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @empty
+            {{-- Default cards as fallback if no data --}}
             {{-- Card 1 --}}
             <div class="col-12 col-sm-6 col-lg-4">
                 <div class="card h-100 text-center shadow-lg border-0 bg-white hover-shadow"
@@ -66,7 +101,7 @@
                     </div>
                 </div>
             </div>
-
+            @endforelse
         </div>
     </div>
 </div>
