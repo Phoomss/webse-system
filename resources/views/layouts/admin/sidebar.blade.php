@@ -8,16 +8,6 @@
             แดชบอร์ด
         </a>
 
-        <a href="#userSubmenu" data-bs-toggle="collapse" class="list-group-item list-group-item-action bg-dark text-white">
-            ผู้ใช้งาน
-        </a>
-        <div class="collapse" id="userSubmenu">
-            <a href="#" class="list-group-item list-group-item-action bg-dark text-white ps-5">รายชื่อผู้ใช้</a>
-            <a href="#" class="list-group-item list-group-item-action bg-dark text-white ps-5">สิทธิ์การเข้าถึง</a>
-        </div>
-
-        <a href="#" class="list-group-item list-group-item-action bg-dark text-white">รายงาน</a>
-
         <a href="{{ route('admin.classrooms.index') }}"
             class="list-group-item list-group-item-action bg-dark text-white {{ request()->routeIs('admin.classrooms.*') ? 'active' : '' }}">
             ห้องปฏิบัติการ
@@ -56,20 +46,25 @@
             class="list-group-item list-group-item-action bg-dark text-white {{ request()->routeIs('admin.videos.*') ? 'active' : '' }}">
             <i class="fas fa-video"></i> วิดีโอ
         </a>
-        
+
         <a href="{{ route('admin.courses.index') }}"
             class="list-group-item list-group-item-action bg-dark text-white {{ request()->routeIs('admin.courses.*') ? 'active' : '' }}">
             <i class="fas fa-graduation-cap"></i> หลักสูตร
         </a>
-        
+
         <a href="{{ route('admin.course_cards.index') }}"
             class="list-group-item list-group-item-action bg-dark text-white {{ request()->routeIs('admin.course_cards.*') ? 'active' : '' }}">
             <i class="fas fa-id-card"></i> การ์ดหลักสูตร
         </a>
-        
+
         <a href="{{ route('admin.curriculum_tuitions.index') }}"
             class="list-group-item list-group-item-action bg-dark text-white {{ request()->routeIs('admin.curriculum_tuitions.*') ? 'active' : '' }}">
             <i class="fas fa-book"></i> หลักสูตร/ค่าเทอม
+        </a>
+
+        <a href="{{ route('admin.users.index') }}"
+            class="list-group-item list-group-item-action bg-dark text-white {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+            <i class="fas fa-users"></i> จัดการผู้ใช้งาน
         </a>
 
         <form action="{{ route('logout') }}" method="POST" class="mt-4 px-3">
