@@ -18,7 +18,7 @@
                     <img src="{{ $slide->image }}" class="d-block w-100 h-100 object-fit-cover"
                          alt="{{ $slide->title ?? 'Slide ' . ($index+1) }}">
                 </div>
-                @if($slide->title || $slide->link)
+                <!-- @if($slide->title || $slide->link)
                     <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
                         @if($slide->title)
                             <h5>{{ $slide->title }}</h5>
@@ -27,7 +27,7 @@
                             <a href="{{ $slide->link }}" class="btn btn-primary btn-sm">เพิ่มเติม</a>
                         @endif
                     </div>
-                @endif
+                @endif -->
             </div>
         @endforeach
     </div>

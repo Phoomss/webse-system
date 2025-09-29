@@ -7,15 +7,18 @@
     <div class="bg-danger mx-auto rounded-pill" style="height:4px; width:6rem;"></div>
 </div>
 
+{{-- DEBUG: เช็คข้อมูล --}}
+{{-- {{ dd($videos) }} --}}
+
 {{-- วิดีโอ --}}
 <div class="container">
     <div class="row g-4">
         @forelse ($videos as $video)
         <div class="col-12 col-md-6 d-flex justify-content-center">
             <div class="ratio ratio-16x9 rounded-3 shadow-lg overflow-hidden"
-                 data-aos="fade-up">
+                data-aos="fade-up">
                 <iframe
-                    src="{{ $video->url }}" 
+                    src="{{ $video->embed_url }}"
                     title="{{ $video->title }}"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -31,16 +34,11 @@
     </div>
 </div>
 
-{{-- AOS JS --}}
+{{-- AOS Animation --}}
 <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
-    AOS.init({ duration: 1000 });
-</script>
-
-{{-- AOS JS --}}
-<link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script>
-    AOS.init({ duration: 1000 });
+    AOS.init({
+        duration: 1000
+    });
 </script>
